@@ -35,6 +35,12 @@ const LINKS = [
 	flex-direction: column;
 	gap: 40px;
 	padding-top: 30px;
+	overflow: auto;
+	max-height: calc(100vh - 62px - 73px);
+	&::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+	}
 }
 .aside {
 	display: flex;

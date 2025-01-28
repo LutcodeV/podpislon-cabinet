@@ -1,4 +1,4 @@
-<script setup>
+c<script setup>
 import { RouterView, useRoute } from 'vue-router'
 import DefaultLayout from './layouts/DefaultLayout.vue'
 

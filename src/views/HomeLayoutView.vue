@@ -5,21 +5,15 @@ const LINKS = [
 	{ title: 'Оплаты', tab: 'payments' },
 	{ title: 'Товары', tab: 'products' },
 ]
-const activeTab = ref(LINKS[0].tab)
 </script>
 
 <template>
 	<div class="home-tabs">
-		<button
-			class="home-tabs__link"
-			:class="{ 'home-tabs__link--active': activeTab === link.tab }"
-			v-for="link in LINKS"
-			@click="activeTab = link.tab"
-		>
+		<router-link class="home-tabs__link" v-for="link in LINKS" :to="`/home/${link.tab}`">
 			{{ link.title }}
-		</button>
+		</router-link>
 	</div>
-	<documents-view v-if="activeTab === 'documents'" />
+	<router-view></router-view>
 </template>
 
 <style scoped lang="scss">
@@ -43,7 +37,7 @@ const activeTab = ref(LINKS[0].tab)
 			transition: 0.3s ease;
 			border-radius: 3px;
 		}
-		&--active {
+		&.router-link-active {
 			color: var(--Basic-Dark);
 			&::after {
 				background: var(--Basic-Dark);

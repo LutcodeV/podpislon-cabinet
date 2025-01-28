@@ -14,15 +14,21 @@ const ACTIVE_TYPE = ref('kanban')
 const DOCUMENTS = [
 	{
 		title: 'Договор на внедрение Битрикс24 Off Group 2024 366_24',
-		users: ['Иванов Олег', 'Петров Иван'],
+		users: [
+			{ full_name: 'Иванов Олег', phone: '+7 (999) 999-99-99' },
+			{ full_name: 'Иванов Олег', phone: '+7 (999) 999-99-99' },
+		],
 		date: '16.08.2024 19:47',
-		status: 'draft',
+		status: 10,
 	},
 	{
 		title: 'Договор на внедрение Битрикс24 Off Group 2024 366_24',
-		users: ['Иванов Олег', 'Петров Иван'],
+		users: [
+			{ full_name: 'Иванов Олег', phone: '+7 (999) 999-99-99' },
+			{ full_name: 'Иванов Олег', phone: '+7 (999) 999-99-99' },
+		],
 		date: '16.08.2024 19:47',
-		status: 'sent',
+		status: 15,
 	},
 ]
 </script>

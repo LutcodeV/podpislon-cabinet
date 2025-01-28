@@ -37,11 +37,13 @@ defineProps({
 	color: #eaeaea;
 	background: linear-gradient(
 		90deg,
-		rgba(19, 20, 20, 0.2) 50%,
-		rgba(247, 153, 0, 0.2) 75%,
+		rgba(19, 20, 20, 0.2) 0%,
+		rgba(247, 153, 0, 0.2) 50%,
 		rgba(19, 20, 20, 0.2) 100%
 	);
-	background-size: 200% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 0 100%;
 	.icon {
 		color: #fff;
 		width: 24px;
@@ -55,8 +57,8 @@ defineProps({
 		max-width: 100px;
 	}
 	&.router-link-active {
-		background-position-x: 100%;
 		color: var(--Basic-Branded);
+		background-size: 100% 100%;
 	}
 	&--folded {
 		span {

@@ -9,26 +9,32 @@ const props = defineProps({
 		type: String,
 		required: true,
 	},
+	saveColor: {
+		type: Boolean,
+		default: false,
+	},
 })
 
 const icon = defineAsyncComponent(() => import(`@/assets/icons/${props.name}.svg`))
 </script>
 
 <template>
-	<component :is="icon" class="icon" />
+	<component :is="icon" :class="`icon ${saveColor ? 'save-color' : ''}`" />
 </template>
 
 <style scoped lang="scss">
 .icon {
 	display: inline-block;
 	color: currentColor;
-	:deep([fill]) {
-		fill: currentColor;
-		transition: 0.3s ease;
-	}
-	:deep([stroke]) {
-		stroke: currentColor;
-		transition: 0.3s ease;
+	&:not(.save-color) {
+		:deep([fill]) {
+			fill: currentColor;
+			transition: 0.3s ease;
+		}
+		:deep([stroke]) {
+			stroke: currentColor;
+			transition: 0.3s ease;
+		}
 	}
 }
 </style>

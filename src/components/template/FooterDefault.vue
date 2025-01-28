@@ -21,7 +21,7 @@
 	margin-top: auto;
 	display: flex;
 	align-items: center;
-	padding-top: 16px;
+	padding: 16px 24px;
 	&__socials {
 		align-items: center;
 		display: flex;

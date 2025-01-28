@@ -46,7 +46,15 @@ onUnmounted(() => {
 		:placeholder="$attrs.placeholder || 'Выберите'"
 		@update:modelValue="$emit('update:modelValue', value)"
 		@click="openList"
-	/>
+		:lockInput="true"
+	>
+		<template #postfix>
+			<base-icon
+				:class="`select__arrow ${isOpen ? 'select__arrow--open' : ''}`"
+				name="thin-chevron-down"
+			/>
+		</template>
+	</base-input>
 	<Teleport to="body">
 		<div
 			class="list"
@@ -73,6 +81,17 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
+.select {
+	&__arrow {
+		margin: auto 0;
+		transition: 0.3s ease;
+		min-width: 8px;
+		margin-left: 8px;
+		&--open {
+			transform: rotate(180deg);
+		}
+	}
+}
 .list {
 	position: absolute;
 	z-index: 1;
