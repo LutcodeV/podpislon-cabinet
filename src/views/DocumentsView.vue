@@ -34,8 +34,7 @@ const DOCUMENTS = [
 </script>
 
 <template>
-	<div class="documents-header">
-		<p class="documents-header__title">СПИСОК ДОКУМЕНТОВ</p>
+	<PageHeader title="СПИСОК ДОКУМЕНТОВ" class="documents-header">
 		<p class="documents-header__company">ИП Пантелемеев Горгипроваркат М...</p>
 		<add-button class="documents-header__button" />
 		<button class="documents-header__menu">
@@ -43,7 +42,7 @@ const DOCUMENTS = [
 			<span></span>
 			<span></span>
 		</button>
-	</div>
+	</PageHeader>
 	<div class="documents-filters">
 		<base-datepicker v-model="form.created_at" placeholder="Дата создания" />
 		<base-select v-model="form.status" placeholder="Статус" :list="LIST_STATUS" />
@@ -110,12 +109,6 @@ const DOCUMENTS = [
 	gap: 24px;
 }
 .documents-header {
-	margin-top: 32px;
-	display: flex;
-	align-items: center;
-	&__title {
-		@extend .f-heading;
-	}
 	&__company {
 		@extend .f-small-main;
 		margin-left: 18px;

@@ -7,12 +7,14 @@ import ProductsView from '@/views/ProductsView.vue'
 import TariffView from '@/views/TariffView.vue'
 import EmployeesView from '@/views/EmployeesView.vue'
 import SettingsView from '@/views/SettingsView.vue'
-import KnowledgeView from '@/views/knowledgeView.vue'
+import KnowledgeView from '@/views/KnowledgeView.vue'
 import PartnersView from '@/views/PartnersView.vue'
 import BonusesView from '@/views/BonusesView.vue'
 import LoginView from '@/views/LoginView.vue'
 import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue'
 import RegistrationView from '@/views/RegistrationView.vue'
+import BalanceView from '@/views/BalanceView.vue'
+import BillsView from '@/views/BillsView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +51,19 @@ const router = createRouter({
 			path: '/tariff',
 			name: 'tariff',
 			component: TariffView,
+			redirect: { name: 'balance' },
+			children: [
+				{
+					name: 'balance',
+					path: '/tariff/balance',
+					component: BalanceView,
+				},
+				{
+					name: 'bills',
+					path: '/tariff/bills',
+					component: BillsView,
+				},
+			],
 		},
 		{
 			path: '/employees',

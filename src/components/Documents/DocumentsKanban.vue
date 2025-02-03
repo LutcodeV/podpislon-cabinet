@@ -31,13 +31,8 @@ const KANBAN_STATUSES = {
 				/>
 			</div>
 		</div>
-		<div class="documents-kanban__preloader" v-if="isPending">
-			<PreloaderElement />
-		</div>
-		<div class="documents-kanban__nothing" v-else-if="documents.length === 0">
-			<base-icon name="not-founded-icon" />
-			<p>Здесь пока ничего нет</p>
-		</div>
+		<BasePreloader v-if="isPending" />
+		<BaseNothing v-else-if="documents.length === 0" />
 	</div>
 </template>
 
@@ -48,21 +43,6 @@ const KANBAN_STATUSES = {
 	flex-direction: column;
 	gap: 24px;
 	align-items: flex-start;
-	&__preloader {
-		margin: auto;
-	}
-	&__nothing {
-		margin: auto;
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-		align-items: center;
-		justify-content: center;
-		color: var(--Basic-Grey);
-		p {
-			@extend .f-menu;
-		}
-	}
 	&__row {
 		display: flex;
 		align-items: flex-start;

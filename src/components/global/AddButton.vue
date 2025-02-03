@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import DocumentAddButton from './DocumentAddButton.vue'
+import DocumentAddButton from '../Documents/DocumentAddButton.vue'
 import ListAttachedDocuments from './ListAttachedDocuments.vue'
 import RightSlideModal from './RightSlideModal.vue'
 import PDFModal from './PDFModal.vue'
