@@ -10,7 +10,7 @@ const form = ref({
 })
 
 const LIST_STATUS = ['Все', 'Подписан', 'Просмотрен', 'Аннулирован']
-const ACTIVE_TYPE = ref('kanban')
+const ACTIVE_TYPE = ref('list')
 const DOCUMENTS = [
 	{
 		title: 'Договор на внедрение Битрикс24 Off Group 2024 366_24',
@@ -69,10 +69,15 @@ const DOCUMENTS = [
 		v-if="ACTIVE_TYPE === 'kanban'"
 		:documents="DOCUMENTS"
 	/>
+	<documents-list class="documents-list" v-if="ACTIVE_TYPE === 'list'" :documents="DOCUMENTS" />
 </template>
 
 <style scoped lang="scss">
 .documents-kanban {
+	margin-top: 16px;
+	flex: 1 1 0;
+}
+.documents-list {
 	margin-top: 16px;
 	flex: 1 1 0;
 }
@@ -116,7 +121,7 @@ const DOCUMENTS = [
 		margin-left: 18px;
 		color: var(--Basic-Grey);
 	}
-	&__button {
+	:deep(.documents-header__button) {
 		margin-left: auto;
 	}
 	&__menu {

@@ -29,6 +29,15 @@
 	}
 	&__social {
 		color: #a7a7a7;
+		max-width: 24px;
+		height: 24px;
+		@include hover {
+			color: var(--Basic-Dark);
+		}
+		:deep(.icon) {
+			width: 24px;
+			height: 24px;
+		}
 	}
 	&__agreements {
 		margin-left: 72px;

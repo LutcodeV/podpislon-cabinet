@@ -55,6 +55,11 @@ const DELAY = 0.3
 		height: 16px;
 		color: var(--Basic-Background);
 	}
+	@include hover {
+		svg {
+			color: var(--Basic-Branded);
+		}
+	}
 }
 @keyframes slideToLeft {
 	from {

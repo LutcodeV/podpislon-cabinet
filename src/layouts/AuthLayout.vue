@@ -55,6 +55,9 @@
 		background: #fff;
 		max-width: 402px;
 		width: 100%;
+		&::-webkit-scrollbar {
+			width: 0 !important;
+		}
 	}
 	&__logo {
 		margin: 0 auto;

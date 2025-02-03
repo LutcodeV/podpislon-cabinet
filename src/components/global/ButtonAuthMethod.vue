@@ -12,7 +12,7 @@ defineProps({
 const icons = {
 	tbank: 'auth-tbank',
 	sber: 'auth-sber',
-	biomery: 'auth-biometry',
+	biometry: 'auth-biometry',
 }
 </script>
 

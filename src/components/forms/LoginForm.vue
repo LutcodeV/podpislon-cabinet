@@ -16,7 +16,7 @@ const form = ref({
 			required
 		/>
 		<div class="form__row">
-			<base-checkbox>Запомнить меня</base-checkbox>
+			<base-checkbox class="form__checkbox">Запомнить меня</base-checkbox>
 			<router-link class="form__link" to="/password-recovery">Забыли пароль?</router-link>
 		</div>
 		<base-button>Войти</base-button>
@@ -37,6 +37,9 @@ const form = ref({
 		display: flex;
 		flex-direction: column;
 		gap: 12px;
+	}
+	&__checkbox {
+		align-items: center;
 	}
 	&__row {
 		display: flex;

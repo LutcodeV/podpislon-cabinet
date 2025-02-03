@@ -1,9 +1,16 @@
 @use 'mixins.scss' as *;
 
-@include fontfamily('Nunito Sans', '/assets/fonts/NunitoSans-Regular', 400, normal, $ttf: true);
-@include fontfamily('Nunito Sans', '/assets/fonts/NunitoSans-Medium', 500, normal, $ttf: true);
-@include fontfamily('Nunito Sans', '/assets/fonts/NunitoSans-SemiBold', 600, normal, $ttf: true);
-@include fontfamily('Nunito Sans', '/assets/fonts/NunitoSans-Bold', 700, normal, $ttf: true);
+@include fontfamily('NunitoSans', '/assets/fonts/NunitoSans_10pt-Regular', 400, normal, $ttf: true);
+@include fontfamily('NunitoSans', '/assets/fonts/NunitoSans_10pt-Medium', 500, normal, $ttf: true);
+@include fontfamily(
+	'NunitoSans',
+	'/assets/fonts/NunitoSans_10pt-SemiBold',
+	600,
+	normal,
+	$ttf: true
+);
+@include fontfamily('NunitoSans', '/assets/fonts/NunitoSans_10pt-Bold', 700, normal, $ttf: true);
+@include fontfamily('NunitoSans', '/assets/fonts/NunitoSans_10pt-Black', 900, normal, $ttf: true);
 
 :root {
 	--Basic-Dark: #131414;
@@ -30,7 +37,7 @@
 	background: transparent;
 	outline: none;
 	-webkit-tap-highlight-color: transparent;
-	font-family: 'Nunito Sans', sans-serif;
+	font-family: 'NunitoSans';
 }
 
 button {

@@ -1,11 +1,12 @@
 <script setup>
 const form = ref({
 	email: '',
+	phone: '',
 	password: '',
 	registration_type: 'Не выбрано',
 })
 
-const LIST_REGISTRATION_TYPE = ['Не выбрано', 'Кабинет физлица', 'Кабинет компании']
+const LIST_REGISTRATION_TYPE = ['Кабинет физлица', 'Кабинет компании']
 const LIST_TITLES = {
 	'Не выбрано': 'РЕГИСТРАЦИЯ',
 	'Кабинет физлица': 'РЕГИСТРАЦИЯ ФИЗЛИЦА',
@@ -43,11 +44,20 @@ const emit = defineEmits(['submit', 'selectRegistrationType'])
 		<template v-if="form.registration_type !== 'Не выбрано'">
 			<base-input placeholder="Email" type="email" :required="true" v-model="form.email" required />
 			<base-input
+				placeholder="Телефон"
+				type="phone"
+				:required="true"
+				v-model="form.password"
+				v-if="form.registration_type === 'Кабинет физлица'"
+				required
+			/>
+			<base-input
 				placeholder="Пароль"
 				type="password"
 				:required="true"
 				v-model="form.password"
 				required
+				v-else
 			/>
 			<div class="form__row">
 				<base-checkbox required>

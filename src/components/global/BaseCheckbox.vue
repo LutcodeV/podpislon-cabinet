@@ -1,8 +1,22 @@
-<script setup></script>
+<script setup>
+defineProps({
+	modelValue: {
+		type: Boolean,
+		default: false,
+	},
+})
+
+defineEmits(['update:modelValue'])
+</script>
 
 <template>
 	<label class="checkbox">
-		<input type="checkbox" class="checkbox__input" :required="$attrs.required" />
+		<input
+			type="checkbox"
+			@input="$emit('update:modelValue', $event.target.checked)"
+			class="checkbox__input"
+			:required="$attrs.required"
+		/>
 		<span class="checkbox__box">
 			<svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path

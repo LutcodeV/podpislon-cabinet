@@ -16,7 +16,11 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-	<VDatePicker v-model.range="value" @update:modelValue="$emit('update:modelValue', value)">
+	<VDatePicker
+		class="datepicker"
+		v-model.range="value"
+		@update:modelValue="$emit('update:modelValue', value)"
+	>
 		<template #default="{ inputValue, inputEvents }">
 			<BaseInput
 				:placeholder="$attrs.placeholder || 'Дата'"
@@ -27,4 +31,14 @@ defineEmits(['update:modelValue'])
 	</VDatePicker>
 </template>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.vc-light.vc-attr,
+.vc-light .vc-attr {
+	--vc-highlight-solid-bg: var(--Basic-Branded) !important;
+	--vc-highlight-outline-border: var(--Basic-Branded);
+	--vc-highlight-outline-content-color: var(--Basic-Branded);
+	--vc-highlight-light-bg: rgba(247, 153, 0, 0.5);
+	--vc-highlight-light-content-color: #fff;
+	--vc-focus-ring: rgba(247, 153, 0, 0.5);
+}
+</style>

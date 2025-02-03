@@ -273,7 +273,7 @@ const COMPANIES = ['ООО Ромашка', 'ООО Газпром межрег�
 	border: 1px solid var(--Basic-Background);
 	transition: 0.3s ease;
 	border-radius: 4px;
-	&__text {
+	&__title {
 		@extend .f-small-main;
 	}
 	&__value {
@@ -311,11 +311,15 @@ const COMPANIES = ['ООО Ромашка', 'ООО Газпром межрег�
 		opacity: 0;
 		pointer-events: none;
 		border-radius: 4px;
+		z-index: 1;
 		transition: 0.3s ease;
 		padding-top: 16px;
+		min-width: 100%;
 		transform: translateY(10px);
 	}
 	&__list {
+		max-width: 226px;
+		margin: 0 auto;
 		padding: 12px;
 		border-radius: 4px;
 		background: #fff;
