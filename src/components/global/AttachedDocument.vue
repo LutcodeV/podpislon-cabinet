@@ -8,6 +8,10 @@ defineProps({
 		type: Object,
 		default: () => ({}),
 	},
+	editable: {
+		type: Boolean,
+		default: false,
+	},
 })
 </script>
 
@@ -22,7 +26,7 @@ defineProps({
 		<p class="attached-document__title">
 			{{ info.name }}
 		</p>
-		<button class="attached-document__trash" @click.stop="$emit('delete')">
+		<button v-if="editable" class="attached-document__trash" @click.stop="$emit('delete')">
 			<BaseIcon name="icon-trash"></BaseIcon>
 		</button>
 	</div>
@@ -34,15 +38,20 @@ defineProps({
 	display: flex;
 	transition: 0.3s ease;
 	align-items: center;
+	position: relative;
 	cursor: pointer;
-	padding: 12px 16px 12px 6px;
+	padding: 12px 16px 12px 16px;
 	&__drag {
 		border: 4px solid transparent;
-		margin: -4px;
+		margin: 0 -4px;
 		display: flex;
 		flex-direction: column;
 		gap: 3px;
 		cursor: grab;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: 4px;
 		span {
 			width: 3px;
 			height: 3px;
@@ -57,9 +66,6 @@ defineProps({
 		min-width: 16px;
 		max-width: 16px;
 		width: 16px;
-		.attached-document__drag + & {
-			margin-left: 8px;
-		}
 	}
 	&__trash {
 		margin-left: auto;

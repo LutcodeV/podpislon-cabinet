@@ -1,4 +1,10 @@
 <script setup>
+defineProps({
+	listLength: {
+		type: Number,
+		default: 0,
+	},
+})
 import BaseCheckbox from './BaseCheckbox.vue'
 
 const strongOrder = ref(false)
@@ -9,7 +15,7 @@ const strongOrder = ref(false)
 		<div class="list__wrapper">
 			<slot :strongOrder="strongOrder"></slot>
 		</div>
-		<BaseCheckbox class="list-checkbox" v-model="strongOrder">
+		<BaseCheckbox class="list-checkbox" v-model="strongOrder" v-if="listLength > 1">
 			<div class="list-checkbox__row">
 				Строгий порядок подписания документов
 				<QuestTooltip />

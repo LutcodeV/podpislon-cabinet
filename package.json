@@ -12,6 +12,7 @@
     "@popperjs/core": "^2.11.8",
     "@vue/eslint-config-prettier": "^10.2.0",
     "inputmask": "^5.0.9",
+    "maska": "^3.1.0",
     "pinia": "^2.3.0",
     "sass": "^1.83.4",
     "swiper": "^11.2.1",

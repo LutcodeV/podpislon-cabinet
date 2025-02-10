@@ -1,49 +1,19 @@
 <script setup>
 import { ref } from 'vue'
-import DocumentAddButton from '../Documents/DocumentAddButton.vue'
-import ListAttachedDocuments from './ListAttachedDocuments.vue'
 import RightSlideModal from './RightSlideModal.vue'
 import PDFModal from './PDFModal.vue'
+const STEP_TITLES = [
+	'Добавление подписантов',
+	'Добавления Оплаты',
+	'Добавление документов',
+	'Отправка документов',
+]
 
 const isModalVisible = ref(false)
+const currentStep = ref(1)
+const selectedFileURL = ref(null)
 const closeModal = () => {
 	isModalVisible.value = false
-}
-
-const documentsRaw = ref(null)
-const dragIndex = ref(null)
-const documents = ref([])
-watch(documentsRaw, () => {
-	if (documentsRaw.value === null) return
-	documents.value.push(
-		...Array.from(documentsRaw.value).map((file) => ({
-			file,
-			url: URL.createObjectURL(file),
-		})),
-	)
-	console.log(documents.value)
-	documentsRaw.value = null
-})
-
-// Начало перетаскивания
-const dragStart = (index) => {
-	dragIndex.value = index
-}
-
-// Перетаскивание на другой элемент (меняем местами)
-const drop = (index) => {
-	if (dragIndex.value !== null && dragIndex.value !== index) {
-		;[documents.value[dragIndex.value], documents.value[index]] = [
-			documents.value[index],
-			documents.value[dragIndex.value],
-		]
-	}
-	dragIndex.value = null
-}
-const selectedFileURL = ref(null)
-const deleteFile = (index) => {
-	if (selectedFileURL.value === documents.value[index].url) selectedFileURL.value = null
-	documents.value.splice(index, 1)
 }
 </script>
 
@@ -54,57 +24,19 @@ const deleteFile = (index) => {
 	</button>
 
 	<RightSlideModal :isVisible="isModalVisible" @close="closeModal">
-		<PDFModal :src="selectedFileURL" v-if="selectedFileURL" />
-		<RightSlideModalContainer title="Добавление документов">
-			<div class="document-add">
-				<div class="document-add__row">
-					<DocumentAddButton v-model="documentsRaw" />
-					<DocumentAddButton from-template />
-				</div>
-				<hr />
-				<ListAttachedDocuments>
-					<template #default="{ strongOrder }">
-						<AttachedDocument
-							v-for="(doc, index) in documents"
-							:key="index"
-							:info="doc.file"
-							:is-draggable="strongOrder"
-							@delete="deleteFile(index)"
-							@click="selectedFileURL = doc.url"
-							@dragstart="() => dragStart(index)"
-							@drop="() => drop(index)"
-							@dragover.prevent
-						/>
-					</template>
-				</ListAttachedDocuments>
-				<hr />
-			</div>
+		<PDFModal :src="selectedFileURL" v-if="selectedFileURL && currentStep === 3" />
+		<RightSlideModalContainer :title="STEP_TITLES[currentStep - 1]">
+			<CreateDocumentForm
+				v-model:currentStep="currentStep"
+				v-model:selectedFileURL="selectedFileURL"
+			/>
 		</RightSlideModalContainer>
 	</RightSlideModal>
 </template>
 
 <style scoped lang="scss">
-.document-add {
-	display: flex;
-	flex-direction: column;
-	max-width: 484px;
-	width: 100%;
-	gap: 32px;
-	&__row {
-		display: flex;
-		gap: 24px;
-	}
-	hr {
-		margin-left: -52px;
-		max-width: calc(100% + 104px);
-		width: calc(100% + 104px);
-		border: 0;
-		height: 1px;
-		background: #fff;
-	}
-}
 .button {
-	@extend .f-signatures;
+	@extend .f-main-text;
 	display: flex;
 	align-items: center;
 	gap: 12px;

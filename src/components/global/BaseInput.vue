@@ -1,4 +1,6 @@
 <script setup>
+import { vMaska } from 'maska/vue'
+
 defineProps({
 	modelValue: {
 		type: String,
@@ -12,6 +14,14 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	disabled: {
+		type: Boolean,
+		default: false,
+	},
+	mask: {
+		type: String,
+		default: '',
+	},
 })
 const refLabel = ref(null)
 defineOptions({
@@ -22,11 +32,12 @@ defineExpose({ refLabel })
 </script>
 
 <template>
-	<label
+	<component
+		:is="lockInput ? 'div' : 'label'"
 		@click="$emit('click')"
 		:for="$attrs.id"
 		ref="refLabel"
-		:class="`input ${$attrs.class || ''}`"
+		:class="`input ${$attrs.class || ''} ${disabled ? 'input--disabled' : ''}`"
 	>
 		<input
 			:value="modelValue || value"
@@ -34,16 +45,17 @@ defineExpose({ refLabel })
 			:type="$attrs.type || 'text'"
 			:name="$attrs.name"
 			:required="$attrs.required"
-			:disabled="$attrs.disabled || lockInput"
+			v-maska="`${mask}`"
+			:disabled="disabled || lockInput"
 			v-bind="$attrs"
 			placeholder=""
-			:class="`input__field ${modelValue.length > 0 || value.length > 0 ? 'input__field--filled' : ''}`"
+			:class="`input__field ${lockInput ? 'input__field--lock' : ''} ${modelValue.length > 0 || value.length > 0 ? 'input__field--filled' : ''}`"
 			@input="$emit('update:modelValue', $event.target.value)"
 			@change="$emit('update:modelValue', $event.target.value)"
 		/>
 		<slot name="postfix" />
 		<p class="input__title">{{ $attrs.placeholder }}</p>
-	</label>
+	</component>
 </template>
 
 <style scoped lang="scss">
@@ -74,10 +86,23 @@ defineExpose({ refLabel })
 		&:disabled {
 			pointer-events: none;
 		}
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+		&--lock {
+			pointer-events: none;
+		}
 	}
 	&__field:is(:active, :focus, .input__field--filled) ~ .input__title {
 		@extend .f-signatures;
 		top: 6px;
+	}
+	&--disabled {
+		pointer-events: none;
+		background: var(--Basic-Background);
+		border-color: var(--Basic-Background);
 	}
 }
 </style>

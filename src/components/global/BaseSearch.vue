@@ -10,7 +10,7 @@ const props = defineProps({
 	},
 })
 
-defineEmits(['update:modelValue'])
+const emit = defineEmits(['selectOption', 'update:modelValue'])
 
 const refInput = ref(null)
 const refList = ref(null)
@@ -31,6 +31,13 @@ const windowClick = (e) => {
 	}
 }
 
+const selectItem = (item) => {
+	emit('selectOption', item)
+	emit('update:modelValue', '')
+	value.value = ''
+	isOpen.value = false
+}
+
 onMounted(() => {
 	document.addEventListener('click', windowClick)
 })
@@ -45,16 +52,12 @@ onUnmounted(() => {
 		ref="refInput"
 		:placeholder="$attrs.placeholder || 'Выберите'"
 		@update:modelValue="$emit('update:modelValue', value)"
-		@click="openList"
-		:lockInput="true"
-		:class="`select ${$attrs.class || ''}`"
+		@focus="openList"
+		:class="`search ${$attrs.class || ''}`"
 		:disabled="$attrs.disabled"
 	>
 		<template #postfix>
-			<base-icon
-				:class="`select__arrow ${isOpen ? 'select__arrow--open' : ''}`"
-				name="thin-chevron-down"
-			/>
+			<base-icon size="24" class="search__icon" name="search" />
 		</template>
 	</base-input>
 	<Teleport to="body">
@@ -68,14 +71,9 @@ onUnmounted(() => {
 				maxWidth: boundingRect.width + 'px',
 			}"
 		>
-			<div class="list__container" v-if="isOpen">
-				<button
-					class="list__item"
-					v-for="item in list"
-					:key="item"
-					@click="((value = item), $emit('update:modelValue', item), (isOpen = false))"
-				>
-					{{ item }}
+			<div class="list__container">
+				<button class="list__item" v-for="item in list" :key="item" @click="selectItem(item)">
+					<slot name="option" :item="item"></slot>
 				</button>
 			</div>
 		</div>
@@ -83,16 +81,12 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-.select {
+.search {
 	cursor: pointer;
-	&__arrow {
+	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08) inset;
+	&__icon {
 		margin: auto 0;
-		transition: 0.3s ease;
-		min-width: 8px;
-		margin-left: 8px;
-		&--open {
-			transform: rotate(180deg);
-		}
+		color: var(--Basic-Grey);
 	}
 }
 .list {

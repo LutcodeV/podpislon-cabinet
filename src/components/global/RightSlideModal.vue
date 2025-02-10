@@ -49,6 +49,7 @@ const DELAY = 0.3
 	padding: 8px;
 	display: flex;
 	align-items: center;
+	transition: 0.3s ease;
 	justify-content: center;
 	svg {
 		width: 16px;
@@ -56,9 +57,7 @@ const DELAY = 0.3
 		color: var(--Basic-Background);
 	}
 	@include hover {
-		svg {
-			color: var(--Basic-Branded);
-		}
+		background: var(--Basic-Branded);
 	}
 }
 @keyframes slideToLeft {

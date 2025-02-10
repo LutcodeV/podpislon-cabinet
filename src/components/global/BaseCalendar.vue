@@ -7,10 +7,6 @@ const props = defineProps({
 			end: null,
 		}),
 	},
-	single: {
-		type: Boolean,
-		default: false,
-	},
 })
 const value = ref({
 	start: props.modelValue.start || null,
@@ -20,14 +16,7 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-	<VDatePicker
-		class="datepicker"
-		v-if="single"
-		v-model="value"
-		@update:modelValue="$emit('update:modelValue', value)"
-	></VDatePicker>
-	<VDatePicker
-		v-else
+	<VCalendar
 		class="datepicker"
 		:popover="{
 			visibility: 'focus',
@@ -35,14 +24,7 @@ defineEmits(['update:modelValue'])
 		v-model.range="value"
 		@update:modelValue="$emit('update:modelValue', value)"
 	>
-		<template #default="{ inputValue, inputEvents }">
-			<BaseInput
-				:placeholder="$attrs.placeholder || 'Дата'"
-				:value="inputValue.start && inputValue.end ? `${inputValue.start} - ${inputValue.end}` : ''"
-				v-on="inputEvents.start || inputEvents.end"
-			/>
-		</template>
-	</VDatePicker>
+	</VCalendar>
 </template>
 
 <style lang="scss">

@@ -13,13 +13,28 @@ const props = defineProps({
 		type: Boolean,
 		default: false,
 	},
+	size: {
+		type: String,
+		default: '',
+	},
 })
 
 const icon = defineAsyncComponent(() => import(`@/assets/icons/${props.name}.svg`))
 </script>
 
 <template>
-	<component :is="icon" :class="`icon ${saveColor ? 'save-color' : ''}`" />
+	<component
+		:is="icon"
+		:style="{
+			width: size,
+			height: size,
+			minWidth: size,
+			minHeight: size,
+			maxWidth: size,
+			maxHeight: size,
+		}"
+		:class="`icon ${saveColor ? 'save-color' : ''}`"
+	/>
 </template>
 
 <style scoped lang="scss">

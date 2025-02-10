@@ -42,4 +42,15 @@
 	background: #fff;
 	box-shadow: var(--Shadow-01);
 	padding: 24px;
+	&--small {
+		padding: 12px 8px 12px 16px;
+	}
+	&--dashed {
+		border: 1px dashed var(--Basic-Grey);
+	}
+	&--centered {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }

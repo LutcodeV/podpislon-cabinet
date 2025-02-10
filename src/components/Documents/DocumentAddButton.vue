@@ -26,12 +26,12 @@ defineEmits(['update:modelValue'])
 		<base-icon name="from-computer" class="document-add-button__icon" v-if="!fromTemplate" />
 		<base-icon name="from-template" class="document-add-button__icon" v-else />
 		<div class="document-add-button__col">
-			<p class="document-add-button__title">
+			<BaseText class="document-add-button__title">
 				{{ fromTemplate ? 'Из шаблона' : 'С компютера' }}
-			</p>
-			<p class="document-add-button__text">
+			</BaseText>
+			<BaseText variant="signatures" class="document-add-button__text">
 				{{ fromTemplate ? 'Выберите файл из шаблона' : 'Выберите файл с компьютера' }}
-			</p>
+			</BaseText>
 		</div>
 	</div>
 </template>
@@ -39,13 +39,14 @@ defineEmits(['update:modelValue'])
 <style scoped lang="scss">
 .document-add-button {
 	@extend .b-card;
+	cursor: pointer;
 	display: flex;
 	gap: 24px;
 	align-items: center;
 	cursor: pointer;
 	position: relative;
-
 	padding: 10px 18px 12px;
+
 	&__input {
 		opacity: 0;
 		top: 0;
@@ -55,11 +56,9 @@ defineEmits(['update:modelValue'])
 		position: absolute;
 	}
 	&__title {
-		@extend .f-main-text;
 		text-decoration: underline;
 	}
 	&__text {
-		@extend .f-signatures;
 		color: var(--Basic-Grey);
 	}
 	&__icon {
