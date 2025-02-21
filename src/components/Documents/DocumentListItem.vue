@@ -35,10 +35,16 @@ const closeModal = () => {
 			</button>
 		</td>
 		<td>
-			<p class="documents-item__status"><StatusTag :status="30" />21.01.2024 16:23</p>
+			<p class="documents-item__status">
+				<StatusTag :status="30" />
+				21.01.2024 16:23
+			</p>
 		</td>
 		<td>
-			<p class="documents-item__status"><StatusTag :status="30" />21.01.2024 16:23</p>
+			<p class="documents-item__status">
+				<StatusTag :status="30" />
+				21.01.2024 16:23
+			</p>
 		</td>
 		<td>
 			<DocumentUsers :info="info" />

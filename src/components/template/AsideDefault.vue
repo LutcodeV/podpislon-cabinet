@@ -1,14 +1,22 @@
 <script setup>
+import SettingsView from '../settings/SettingsView.vue'
+
 const navbarIsFolded = inject('navbarIsFolded')
 const LINKS = [
 	{ href: '/', icon: 'home', title: 'Главная' },
 	{ href: '/tariff', icon: 'tariff', title: 'Мой тариф' },
 	{ href: '/employees', icon: 'employees', title: 'Сотрудники' },
-	{ href: '/settings', icon: 'settings', title: 'Настройки' },
+	{
+		action: () => (settingIsOpen.value = !settingIsOpen.value),
+		icon: 'settings',
+		title: 'Настройки',
+	},
 	{ href: '/knowledge', icon: 'knowledge', title: 'База знаний' },
 	{ href: '/partners', icon: 'partners', title: 'Партнерка' },
 	{ href: '/bonuses', icon: 'bonuses', title: 'Бонусы' },
 ]
+
+const settingIsOpen = ref(false)
 </script>
 
 <template>
@@ -19,6 +27,7 @@ const LINKS = [
 				v-for="link in LINKS"
 				:is-folded="navbarIsFolded"
 				:href="link.href"
+				:action="link.action"
 				:icon="link.icon"
 				:title="link.title"
 			/>
@@ -26,6 +35,8 @@ const LINKS = [
 		<button class="aside__button" @click="navbarIsFolded = !navbarIsFolded">
 			<BaseIcon name="arrow-left" />
 		</button>
+
+		<SettingsView :isVisible="settingIsOpen" @close="settingIsOpen = false" />
 	</aside>
 </template>
 

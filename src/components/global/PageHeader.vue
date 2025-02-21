@@ -9,18 +9,20 @@ defineProps({
 
 <template>
 	<div class="page-header">
-		<p class="page-header__title">{{ title }}</p>
+		<BaseText uppercase variant="heading">{{ title }}</BaseText>
 		<slot />
 	</div>
 </template>
 
+<style lang="scss">
+* + .page-header {
+	margin-top: 32px;
+}
+</style>
+
 <style scoped lang="scss">
 .page-header {
-	margin-top: 32px;
 	display: flex;
 	align-items: center;
-	&__title {
-		@extend .f-heading;
-	}
 }
 </style>

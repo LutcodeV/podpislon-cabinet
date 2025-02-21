@@ -4,12 +4,7 @@ const props = defineProps({
 		type: Boolean,
 		required: true,
 	},
-	level: {
-		type: Number,
-		default: 0,
-	},
 })
-
 const emit = defineEmits(['close'])
 
 const closeModal = () => {

@@ -49,6 +49,7 @@ onUnmounted(() => {
 		:lockInput="true"
 		:class="`select ${$attrs.class || ''}`"
 		:disabled="$attrs.disabled"
+		wFill
 	>
 		<template #postfix>
 			<base-icon

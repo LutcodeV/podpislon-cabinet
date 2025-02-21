@@ -35,6 +35,15 @@
 	font-weight: 700;
 	line-height: 106%; /* 14.84px */
 }
+.h-underline {
+	text-decoration: underline;
+}
+.h-uppercase {
+	text-transform: uppercase;
+}
+.h-clickable {
+	cursor: pointer;
+}
 
 // B prefix - Base
 .b-card {
@@ -53,4 +62,11 @@
 		align-items: center;
 		justify-content: center;
 	}
+}
+.b-modal-divider {
+	margin-left: -52px;
+	margin-right: -52px;
+	width: calc(100% + 104px);
+	height: 1px;
+	background: white;
 }

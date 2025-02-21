@@ -2,6 +2,7 @@
 import BaseCheckbox from '@/components/global/BaseCheckbox.vue'
 import BaseIcon from '@/components/global/BaseIcon.vue'
 import BaseInput from '@/components/global/BaseInput.vue'
+import BaseRadio from '@/components/global/BaseRadio.vue'
 import BaseSelect from '@/components/global/BaseSelect.vue'
 import BaseSwitch from '@/components/global/BaseSwitch.vue'
 import PageHeader from '@/components/global/PageHeader.vue'
@@ -9,6 +10,8 @@ import PageHeader from '@/components/global/PageHeader.vue'
 const form = ref({
 	subscribe: '',
 	count: '0',
+	promocode: '',
+	referral: false,
 })
 
 const subscribeList = ref([
@@ -19,7 +22,7 @@ const subscribeList = ref([
 
 const packagesDocuments = ref(false)
 const subscribe = ref(false)
-
+const hasPromocode = ref(false)
 watch(
 	form,
 	() => {
@@ -48,7 +51,10 @@ watch(
 					<div class="balance-item__header">
 						<BaseIcon name="tariff" class="balance-item__icon" />
 						<p class="balance-item__title">Подписка</p>
-						<p class="balance-item__count">активна до <b>12.12.2024</b></p>
+						<p class="balance-item__count">
+							активна до
+							<b>12.12.2024</b>
+						</p>
 					</div>
 					<p class="balance-item__describe">Отключить</p>
 				</div>
@@ -79,12 +85,18 @@ watch(
 						class="balance-group__range"
 					/>
 					<div class="balance-group__footer" v-if="packagesDocuments">
-						<BaseCheckbox>
-							<span class="balance-group__checkbox">Тариф с СМС <QuestTooltip /></span>
-						</BaseCheckbox>
-						<BaseCheckbox>
-							<span class="balance-group__checkbox">Тариф без СМС <QuestTooltip /></span>
-						</BaseCheckbox>
+						<BaseRadio name="sms">
+							<span class="balance-group__checkbox">
+								Тариф с СМС
+								<QuestTooltip />
+							</span>
+						</BaseRadio>
+						<BaseRadio name="sms">
+							<span class="balance-group__checkbox">
+								Тариф без СМС
+								<QuestTooltip />
+							</span>
+						</BaseRadio>
 					</div>
 				</div>
 			</div>
@@ -111,15 +123,51 @@ watch(
 				<BaseValueRow title="Пакет документов 100 000 шт." value="2 300 000 руб." />
 				<BaseValueRow title="Подписка 1 мес." value="1 000 руб." />
 			</div>
-			<div class="balance-result__group"></div>
+			<div class="balance-result__group">
+				<BaseText underline clickable @click="hasPromocode = !hasPromocode">
+					{{ hasPromocode ? 'Закрыть промокод' : 'У меня есть промокод' }}
+				</BaseText>
+				<BaseInput placeholder="Промокод" v-model="form.promocode" v-if="hasPromocode">
+					<template #postfix>
+						<BaseIcon name="trash" @click="form.promocode = ''" />
+					</template>
+				</BaseInput>
+				<BaseText color="var(--Basic-Grey)" variant="signatures" v-if="hasPromocode">
+					Применен промокод: Пакет документов 10 шт.
+				</BaseText>
+			</div>
 			<BaseInfoBlock>
 				Для применения промокода сформируйте и оплатите счет или перейдите к оплате через СБП.
 			</BaseInfoBlock>
-			<BaseValueRow title="ИТОГО" value="2 301 000 руб." />
+			<div class="balance-result__referral">
+				<BaseColumn gap="2px">
+					<BaseText>Реферальный баланс</BaseText>
+					<BaseText variant="small-main">
+						На вашем счету
+						<BaseText tag="span" variant="small-main" weight="800" color="var(--Basic-Branded)">
+							2 234
+						</BaseText>
+						руб.
+					</BaseText>
+				</BaseColumn>
+				<BaseSwitch v-model="form.referral"></BaseSwitch>
+			</div>
+			<BaseValueRow
+				title="ИТОГО"
+				value="2 301 000 руб."
+				:subvalue="form.referral ? '-2 234 бонусов' : ''"
+			/>
 			<BaseCheckbox class="balance-result__checkbox">
-				Я выражаю согласие с условиями <a href="#">Оферты</a>
+				Я выражаю согласие с условиями
+				<a href="#">Оферты</a>
 			</BaseCheckbox>
-			<BaseButton>Оплатить по счету</BaseButton>
+			<BaseRow>
+				<BaseButton>Оплатить по счету</BaseButton>
+				<BaseButton variant="gradient-border">
+					<BaseIcon name="sbp" save-color />
+					Оплатить по СБП
+				</BaseButton>
+			</BaseRow>
 		</div>
 	</div>
 </template>
@@ -132,6 +180,14 @@ watch(
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+	&__referral {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 4px;
+		background: var(--Basic-Background, #f6f6f6);
+		padding: 9px 12px;
+	}
 	&__group {
 		display: flex;
 		flex-direction: column;

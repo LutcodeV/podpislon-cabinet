@@ -22,6 +22,14 @@ defineProps({
 		type: String,
 		default: '',
 	},
+	wFill: {
+		type: Boolean,
+		default: false,
+	},
+	centered: {
+		type: Boolean,
+		default: false,
+	},
 })
 const refLabel = ref(null)
 defineOptions({
@@ -37,7 +45,8 @@ defineExpose({ refLabel })
 		@click="$emit('click')"
 		:for="$attrs.id"
 		ref="refLabel"
-		:class="`input ${$attrs.class || ''} ${disabled ? 'input--disabled' : ''}`"
+		:class="`input ${$attrs.class || ''} ${disabled ? 'input--disabled' : ''} ${centered ? 'input--centered' : ''}`"
+		:style="{ width: wFill ? '100%' : null }"
 	>
 		<input
 			:value="modelValue || value"
@@ -53,8 +62,10 @@ defineExpose({ refLabel })
 			@input="$emit('update:modelValue', $event.target.value)"
 			@change="$emit('update:modelValue', $event.target.value)"
 		/>
-		<slot name="postfix" />
-		<p class="input__title">{{ $attrs.placeholder }}</p>
+		<div class="input__postfix" v-if="$slots.postfix">
+			<slot name="postfix" />
+		</div>
+		<p class="input__title" v-if="!centered">{{ $attrs.placeholder }}</p>
 	</component>
 </template>
 
@@ -69,6 +80,16 @@ defineExpose({ refLabel })
 	display: flex;
 	border: 1px solid var(--Basic-Grey);
 	border-radius: 4px;
+	&__postfix {
+		margin: auto 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--Basic-Grey);
+		:deep(.icon) {
+			height: 16px;
+		}
+	}
 	&__title {
 		@extend .f-main-text;
 		position: absolute;
@@ -98,6 +119,15 @@ defineExpose({ refLabel })
 	&__field:is(:active, :focus, .input__field--filled) ~ .input__title {
 		@extend .f-signatures;
 		top: 6px;
+	}
+	&--centered {
+		height: 42px;
+		min-height: 42px;
+		.input {
+			&__field {
+				margin-bottom: auto;
+			}
+		}
 	}
 	&--disabled {
 		pointer-events: none;

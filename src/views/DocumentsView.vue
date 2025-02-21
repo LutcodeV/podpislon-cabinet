@@ -36,7 +36,7 @@ const DOCUMENTS = [
 <template>
 	<PageHeader title="СПИСОК ДОКУМЕНТОВ" class="documents-header">
 		<p class="documents-header__company">ИП Пантелемеев Горгипроваркат М...</p>
-		<add-button class="documents-header__button" />
+		<AddDocumentButton class="documents-header__button" />
 		<button class="documents-header__menu">
 			<span></span>
 			<span></span>
@@ -54,13 +54,15 @@ const DOCUMENTS = [
 			:class="`documents-type__button ${ACTIVE_TYPE === 'list' ? 'documents-type__button--active' : ''}`"
 			@click="ACTIVE_TYPE = 'list'"
 		>
-			<base-icon name="list-icon" />Список
+			<base-icon name="list-icon" />
+			Список
 		</button>
 		<button
 			:class="`documents-type__button ${ACTIVE_TYPE === 'kanban' ? 'documents-type__button--active' : ''}`"
 			@click="ACTIVE_TYPE = 'kanban'"
 		>
-			<base-icon name="kanban-icon" />Канбан
+			<base-icon name="kanban-icon" />
+			Канбан
 		</button>
 	</div>
 	<documents-kanban

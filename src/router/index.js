@@ -6,7 +6,6 @@ import PaymentsView from '@/views/PaymentsView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import TariffView from '@/views/TariffView.vue'
 import EmployeesView from '@/views/EmployeesView.vue'
-import SettingsView from '@/views/SettingsView.vue'
 import KnowledgeView from '@/views/KnowledgeView.vue'
 import PartnersView from '@/views/PartnersView.vue'
 import BonusesView from '@/views/BonusesView.vue'
@@ -15,6 +14,7 @@ import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue'
 import RegistrationView from '@/views/RegistrationView.vue'
 import BalanceView from '@/views/BalanceView.vue'
 import BillsView from '@/views/BillsView.vue'
+import KnowledgePageView from '@/views/KnowledgePageView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,14 +71,16 @@ const router = createRouter({
 			component: EmployeesView,
 		},
 		{
-			path: '/settings',
-			name: 'settings',
-			component: SettingsView,
-		},
-		{
 			path: '/knowledge',
 			name: 'knowledge',
 			component: KnowledgeView,
+			children: [
+				{
+					path: '/knowledge/:chapter',
+					name: 'chapter',
+					component: KnowledgePageView,
+				},
+			],
 		},
 		{
 			path: '/partners',

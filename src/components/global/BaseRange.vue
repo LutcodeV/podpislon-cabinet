@@ -74,6 +74,9 @@ watch(
 		margin-top: 6px;
 		justify-content: space-between;
 	}
+	&__legend-value {
+		color: var(--Basic-Grey);
+	}
 	&__wrapper {
 		display: flex;
 		flex-direction: column;

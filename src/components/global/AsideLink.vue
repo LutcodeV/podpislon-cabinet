@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+
 defineProps({
 	icon: {
 		type: String,
@@ -6,7 +8,9 @@ defineProps({
 	},
 	href: {
 		type: String,
-		required: true,
+	},
+	action: {
+		type: Function,
 	},
 	title: {
 		type: String,
@@ -20,9 +24,16 @@ defineProps({
 </script>
 
 <template>
-	<router-link :to="href" class="aside-link" :class="{ 'aside-link--folded': isFolded }"
-		><BaseIcon :name="icon" /><span>{{ title }}</span></router-link
+	<component
+		:is="action ? `button` : RouterLink"
+		:to="href"
+		@click="action"
+		class="aside-link"
+		:class="{ 'aside-link--folded': isFolded }"
 	>
+		<BaseIcon :name="icon" />
+		<span>{{ title }}</span>
+	</component>
 </template>
 
 <style scoped lang="scss">

@@ -12,6 +12,7 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	tag: {},
 	padding: {
 		type: Object,
 		default: () => ({
@@ -27,7 +28,8 @@ defineProps({
 </script>
 
 <template>
-	<div
+	<component
+		:is="tag || 'div'"
 		:style="{
 			paddingInline: padding.x,
 			paddingBlock: padding.y,
@@ -39,7 +41,7 @@ defineProps({
 		:class="`b-card ${type ? 'b-card--' + type : ''} ${isDashed ? 'b-card--dashed' : ''} ${isCentered ? 'b-card--centered' : ''}`"
 	>
 		<slot />
-	</div>
+	</component>
 </template>
 
 <style scoped lang="scss"></style>

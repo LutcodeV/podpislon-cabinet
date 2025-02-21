@@ -1,40 +1,54 @@
 <script setup>
 import { ref } from 'vue'
-import RightSlideModal from './RightSlideModal.vue'
-import PDFModal from './PDFModal.vue'
-const STEP_TITLES = [
-	'Добавление подписантов',
-	'Добавления Оплаты',
-	'Добавление документов',
-	'Отправка документов',
-]
+import RightSlideModal from '../global/RightSlideModal.vue'
+import BaseDatepicker from '../global/BaseDatepicker.vue'
 
 const isModalVisible = ref(false)
-const currentStep = ref(1)
-const selectedFileURL = ref(null)
 const closeModal = () => {
 	isModalVisible.value = false
 }
+const date = ref({
+	start: null,
+	end: null,
+})
 </script>
 
 <template>
 	<button :class="`button ${$attrs.class}`" @click="isModalVisible = true">
 		<span class="button__plus" />
-		Добавить документ
+		Добавить клиента
 	</button>
 
 	<RightSlideModal :isVisible="isModalVisible" @close="closeModal">
-		<PDFModal :src="selectedFileURL" v-if="selectedFileURL && currentStep === 3" />
-		<RightSlideModalContainer :title="STEP_TITLES[currentStep - 1]">
-			<CreateDocumentForm
-				v-model:currentStep="currentStep"
-				v-model:selectedFileURL="selectedFileURL"
-			/>
+		<RightSlideModalContainer class="info-modal" title="Добавление клиента">
+			<BaseCard>
+				<BaseColumn>
+					<BaseInput placeholder="Фамилия" />
+					<BaseInput placeholder="Имя" />
+					<BaseInput placeholder="Отчество" />
+					<BaseInput placeholder="Телефон" />
+					<BaseInput placeholder="E-mail" />
+					<BaseInput placeholder="Серия и номер паспорта" />
+					<BaseInput placeholder="Дата выдачи" />
+					<BaseInput placeholder="Органы выдачи" />
+					<BaseInput placeholder="Адрес регистрации" />
+				</BaseColumn>
+				<BaseButton class="info-modal__button">Сохранить</BaseButton>
+			</BaseCard>
 		</RightSlideModalContainer>
 	</RightSlideModal>
 </template>
 
 <style scoped lang="scss">
+.info-modal {
+	width: 100%;
+	max-width: 540px;
+	&__button {
+		margin-top: 24px;
+		width: 148px;
+		height: 44px;
+	}
+}
 .button {
 	@extend .f-main-text;
 	display: flex;

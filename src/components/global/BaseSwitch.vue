@@ -18,13 +18,13 @@ defineEmits(['update:modelValue'])
 			:checked="modelValue"
 			:required="$attrs.required"
 		/>
-		<span class="checkbox__box"> </span>
+		<span class="checkbox__box"></span>
 	</label>
 </template>
 
 <style scoped lang="scss">
 .checkbox {
-	display: flex;
+	display: inline-flex;
 	align-items: flex-start;
 	gap: 12px;
 	cursor: pointer;

@@ -13,5 +13,10 @@
 	border-radius: 4px;
 	padding: 12px 16px;
 	text-align: center;
+	:deep(a) {
+		font: inherit !important;
+		color: inherit !important;
+		text-decoration: underline !important;
+	}
 }
 </style>
