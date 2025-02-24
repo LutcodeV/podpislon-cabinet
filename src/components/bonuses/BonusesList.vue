@@ -16,17 +16,21 @@ const props = defineProps({
 		<BaseTable>
 			<template #head>
 				<tr>
-					<th></th>
-					<th>Дата добавления</th>
-					<th>Фио</th>
-					<th>Отдел</th>
-					<th>Телефон</th>
-					<th>Почта</th>
+					<th>Дата и время</th>
+					<th>Сумма</th>
+					<th>Контрагент</th>
+					<th>Операция</th>
 					<th>Статус</th>
 				</tr>
 			</template>
 			<template #body>
-				<EmployeeListItem v-for="item in items" :info="item" />
+				<tr v-for="item in items">
+					<td>{{ item.date }}</td>
+					<td>{{ item.price }}</td>
+					<td>{{ item.company }}</td>
+					<td>{{ item.operation }}</td>
+					<td><StatusTag :status="item.status" /></td>
+				</tr>
 			</template>
 		</BaseTable>
 		<BasePreloader v-if="isPending" />
@@ -38,8 +42,13 @@ const props = defineProps({
 .documents-list {
 	@extend .b-card;
 	display: flex;
+	width: 100%;
 	padding: 0;
 	flex-direction: column;
 	align-items: flex-start;
+	td:first-child,
+	th:first-child {
+		padding-left: 24px;
+	}
 }
 </style>

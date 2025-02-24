@@ -1,4 +1,6 @@
 <script setup>
+import ClientListItem from './EmployeeListItem.vue'
+
 const props = defineProps({
 	items: {
 		type: Array,
@@ -18,15 +20,12 @@ const props = defineProps({
 				<tr>
 					<th></th>
 					<th>Дата добавления</th>
-					<th>Фио</th>
-					<th>Отдел</th>
-					<th>Телефон</th>
-					<th>Почта</th>
-					<th>Статус</th>
+					<th>Название</th>
+					<th>Сотрудники/отделы</th>
 				</tr>
 			</template>
 			<template #body>
-				<EmployeeListItem v-for="item in items" :info="item" />
+				<EmployeeRoleItem v-for="item in items" :info="item" />
 			</template>
 		</BaseTable>
 		<BasePreloader v-if="isPending" />

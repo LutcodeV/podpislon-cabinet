@@ -48,6 +48,9 @@ defineExpose({ refLabel })
 		:class="`input ${$attrs.class || ''} ${disabled ? 'input--disabled' : ''} ${centered ? 'input--centered' : ''}`"
 		:style="{ width: wFill ? '100%' : null }"
 	>
+		<div class="input__prefix" v-if="$slots.prefix">
+			<slot name="prefix" />
+		</div>
 		<input
 			:value="modelValue || value"
 			:id="$attrs.id"
@@ -74,6 +77,7 @@ defineExpose({ refLabel })
 	max-width: 100%;
 	flex: 1 1 0;
 	position: relative;
+	flex-wrap: wrap;
 	height: 48px;
 	min-height: 48px;
 	padding: 6px 16px;

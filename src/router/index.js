@@ -5,16 +5,22 @@ import ClientsView from '@/views/ClientsView.vue'
 import PaymentsView from '@/views/PaymentsView.vue'
 import ProductsView from '@/views/ProductsView.vue'
 import TariffView from '@/views/TariffView.vue'
-import EmployeesView from '@/views/EmployeesView.vue'
+import EmployeesView from '@/views/EmployeesListView.vue'
 import KnowledgeView from '@/views/KnowledgeView.vue'
 import PartnersView from '@/views/PartnersView.vue'
-import BonusesView from '@/views/BonusesView.vue'
+import BonusesView from '@/views/BonusesLayoutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue'
 import RegistrationView from '@/views/RegistrationView.vue'
 import BalanceView from '@/views/BalanceView.vue'
 import BillsView from '@/views/BillsView.vue'
 import KnowledgePageView from '@/views/KnowledgePageView.vue'
+import EmployeesLayoutView from '@/views/EmployeesLayoutView.vue'
+import EmployeesAgreementsView from '@/views/EmployeesAgreementsView.vue'
+import EmployeesStructureView from '@/views/EmployeesStructureView.vue'
+import BonusesLayoutView from '@/views/BonusesLayoutView.vue'
+import BonusesHomeView from '@/views/BonusesHomeView.vue'
+import BonusesStartView from '@/views/BonusesStartView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,7 +74,25 @@ const router = createRouter({
 		{
 			path: '/employees',
 			name: 'employees',
-			component: EmployeesView,
+			redirect: { name: 'list' },
+			component: EmployeesLayoutView,
+			children: [
+				{
+					path: '/employees/list',
+					name: 'list',
+					component: EmployeesView,
+				},
+				{
+					path: '/employees/structure',
+					name: 'structure',
+					component: EmployeesStructureView,
+				},
+				{
+					path: '/employees/agreements',
+					name: 'agreements',
+					component: EmployeesAgreementsView,
+				},
+			],
 		},
 		{
 			path: '/knowledge',
@@ -90,7 +114,20 @@ const router = createRouter({
 		{
 			path: '/bonuses',
 			name: 'bonuses',
-			component: BonusesView,
+			redirect: { name: 'bonuses-start' },
+			component: BonusesLayoutView,
+			children: [
+				{
+					path: '/bonuses/home',
+					name: 'bonuses-home',
+					component: BonusesHomeView,
+				},
+				{
+					path: '/bonuses/start',
+					name: 'bonuses-start',
+					component: BonusesStartView,
+				},
+			],
 		},
 		{
 			path: '/login',

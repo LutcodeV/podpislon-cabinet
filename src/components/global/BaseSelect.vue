@@ -86,6 +86,12 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .select {
 	cursor: pointer;
+	:deep(.input__field) {
+		width: auto;
+	}
+	:deep(.input__postfix) {
+		margin-left: auto;
+	}
 	&__arrow {
 		margin: auto 0;
 		transition: 0.3s ease;
