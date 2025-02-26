@@ -13,6 +13,8 @@ const STATUSES = {
 	30: 'Подписан',
 	40: 'Аннулирован',
 	123: 'Договор не подписан',
+	1001: 'Верифицирована',
+	1002: 'Не верифицирована',
 }
 </script>
 
@@ -39,11 +41,13 @@ const STATUSES = {
 	&--20 {
 		background: var(--Status-Viewed);
 	}
-	&--30 {
+	&--30,
+	&--1001 {
 		background: var(--Status-Signed);
 	}
 	&--40,
-	&--123 {
+	&--123,
+	&--1002 {
 		background: var(--Status-Canceled);
 	}
 }

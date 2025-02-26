@@ -21,6 +21,10 @@ import EmployeesStructureView from '@/views/EmployeesStructureView.vue'
 import BonusesLayoutView from '@/views/BonusesLayoutView.vue'
 import BonusesHomeView from '@/views/BonusesHomeView.vue'
 import BonusesStartView from '@/views/BonusesStartView.vue'
+import CabinetLayout from '@/layouts/CabinetLayout.vue'
+import CabinetDocumentsView from '@/views/CabinetDocumentsView.vue'
+import CabinetLayoutView from '@/views/CabinetLayoutView.vue'
+import CabinetCompaniesView from '@/views/CabinetCompaniesView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +54,25 @@ const router = createRouter({
 					path: '/home/products',
 					name: 'products',
 					component: ProductsView,
+				},
+			],
+		},
+		{
+			path: '/cabinet',
+			name: 'cabinet',
+			component: CabinetLayoutView,
+			redirect: { name: 'cabinet-companies' },
+			meta: { layout: CabinetLayout },
+			children: [
+				{
+					path: '/cabinet/companies',
+					name: 'cabinet-companies',
+					component: CabinetCompaniesView,
+				},
+				{
+					path: '/cabinet/documents',
+					name: 'cabinet-document',
+					component: CabinetDocumentsView,
 				},
 			],
 		},

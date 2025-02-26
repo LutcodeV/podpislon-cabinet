@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-	<Popper hover offsetSkid="70" @click.stop>
+	<Popper hover offsetSkid="50" @click.stop>
 		<button class="tooltip-actions">
 			<span></span>
 			<span></span>
@@ -53,6 +53,7 @@ defineProps({
 	}
 	&__action {
 		transition: 0.3s ease;
+		white-space: nowrap;
 		&:hover {
 			text-decoration: underline;
 			color: var(--Basic-Branded);
