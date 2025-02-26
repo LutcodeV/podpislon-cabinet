@@ -1,4 +1,6 @@
 <script setup>
+import Popper from 'vue3-popper'
+
 defineProps({
 	info: {
 		type: Object,
@@ -8,26 +10,33 @@ defineProps({
 </script>
 
 <template>
-	<div class="document-users">
-		<p class="document-users__title">
-			{{
-				info.users.length > 1
-					? `${info.users[0].full_name} +${info.users.length - 1}`
-					: info.users[0].full_name
-			}}
-		</p>
-		<div class="document-users__list-wrapper">
-			<div class="document-users__list">
-				<div class="document-users-item" v-for="user in info.users">
-					<BaseIcon name="profile" class="document-users-item__icon" />
-					<div class="document-users-item__col">
-						<p class="document-users-item__title">{{ user.full_name }}</p>
-						<p class="document-users-item__phone"><span>Тел.</span> {{ user.phone || '-' }}</p>
+	<Popper hover offsetSkid="50" @click.stop>
+		<div class="document-users">
+			<p class="document-users__title">
+				{{
+					info.users.length > 1
+						? `${info.users[0].full_name} +${info.users.length - 1}`
+						: info.users[0].full_name
+				}}
+			</p>
+		</div>
+		<template #content>
+			<div class="document-users__list-wrapper">
+				<div class="document-users__list">
+					<div class="document-users-item" v-for="user in info.users">
+						<BaseIcon name="profile" class="document-users-item__icon" />
+						<div class="document-users-item__col">
+							<p class="document-users-item__title">{{ user.full_name }}</p>
+							<p class="document-users-item__phone">
+								<span>Тел.</span>
+								{{ user.phone || '-' }}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</template>
+	</Popper>
 </template>
 
 <style scoped lang="scss">
@@ -41,13 +50,13 @@ defineProps({
 	}
 	&__list-wrapper {
 		padding-top: 16px;
-		position: absolute;
-		top: 100%;
-		left: 64px;
+		// position: absolute;
+		// top: 100%;
+		// left: 64px;
 		padding-left: 36px;
-		opacity: 0;
-		z-index: 1;
-		pointer-events: none;
+		// opacity: 0;
+		// z-index: 1;
+		// pointer-events: none;
 		transition: 0.3s ease;
 		transform: translateY(10px);
 	}

@@ -16,7 +16,7 @@ const emit = defineEmits(['close'])
 const closeModal = () => {
 	emit('close')
 }
-const activeSettings = ref(null)
+const activeSettings = ref('')
 
 const BUTTONS = [
 	{

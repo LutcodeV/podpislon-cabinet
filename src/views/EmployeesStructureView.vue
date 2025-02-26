@@ -1,56 +1,124 @@
 <script setup>
-import AddEmployeesButton from '@/components/employees/AddEmployeesButton.vue'
-import EmployeesList from '@/components/employees/EmployeesList.vue'
-
-const form = ref({
-	fio: '',
-	status: '',
-	departament: '',
-})
+import EmployeeStructureCard from '@/components/employees/EmployeeStructureCard.vue'
 
 const ITEMS = [
 	{
-		fio: 'Иванов Олег Иванович',
-		phone: '+7 (999) 999-99-99',
-		departament: 'Отдел продаж',
-		status: 30,
-		email: 's3vVx@example.com',
-		date: '16.08.2024   19:47',
-		avatar: '/assets/img/avatar.jpg',
-		id: 'p[okjfew]',
+		name: 'Название отдела может быть длиное',
+		supervisor: {
+			name: 'Петров Олег Иванович',
+			avatar: '/assets/img/avatar.jpg',
+		},
+		users: [
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+		],
 	},
 	{
-		fio: 'Иванов Олег Иванович',
-		phone: '+7 (999) 999-99-99',
-		departament: 'Отдел продаж',
-		status: 30,
-		email: 's3vVx@example.com',
-		date: '16.08.2024   19:47',
-		avatar: null,
-		id: 'po[jkerwgbv]',
+		name: 'Название отдела может быть длиное',
+		users: [
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+		],
+	},
+	{
+		name: 'Название отдела может быть длиное',
+		supervisor: {
+			name: 'Петров Олег Иванович',
+			avatar: '/assets/img/avatar.jpg',
+		},
+		users: [
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+			{
+				full_name: 'Георгий Героев Отчество',
+				phone: '+7 967 456 87 56',
+			},
+		],
 	},
 ]
-
-const LIST_STATUS = ['Все', 'Подписан', 'Просмотрен', 'Аннулирован']
-const LIST_DEPARTAMENTS = ['Все', 'Подписан', 'Просмотрен', 'Аннулирован']
 </script>
 
 <template>
-	<PageHeader title="Сотрудники" class="documents-header">
+	<PageHeader title="Структура компании" class="documents-header">
 		<p class="documents-header__company">ИП Пантелемеев Горгипроваркат М...</p>
-		<BaseRow gap="32px" class="documents-header__row">
-			<AddEmployeesButton class="documents-header__button" />
-		</BaseRow>
 	</PageHeader>
-	<div class="documents-filters">
-		<base-input v-model="form.fio" placeholder="ФИО" />
-		<base-select v-model="form.departament" placeholder="Отдел" :list="LIST_DEPARTAMENTS" />
-		<base-select v-model="form.status" placeholder="Статус" :list="LIST_STATUS" />
-	</div>
-	<EmployeesList class="documents-list" :items="ITEMS" />
+	<BaseColumn gap="70px" wFill class="employees-structure">
+		<EmployeeStructureCard :info="ITEMS[0]" />
+		<BaseRow gap="24px" class="employees-structure__row">
+			<EmployeeStructureCard :info="ITEMS[1]" />
+			<EmployeeStructureCard :info="ITEMS[2]" />
+			<EmployeeStructureCard :info="ITEMS[1]" />
+			<!-- <BaseColumn gap="70px" align="center" wFill justify="center">
+				<EmployeeStructureCard />
+				<BaseRow gap="24px" class="employees-structure__row">
+					<EmployeeStructureCard />
+					<EmployeeStructureCard />
+					<BaseColumn gap="70px" align="center" wFill justify="center">
+						<EmployeeStructureCard />
+						<BaseRow gap="24px" class="employees-structure__row">
+							<EmployeeStructureCard />
+							<EmployeeStructureCard />
+							<EmployeeStructureCard />
+						</BaseRow>
+					</BaseColumn>
+				</BaseRow>
+			</BaseColumn>
+			<BaseColumn gap="70px" align="center" wFill justify="center">
+				<EmployeeStructureCard />
+				<BaseRow gap="24px" class="employees-structure__row">
+					<EmployeeStructureCard />
+					<BaseColumn gap="70px" align="center" wFill justify="center">
+						<EmployeeStructureCard />
+						<BaseRow gap="24px" class="employees-structure__row">
+							<EmployeeStructureCard />
+							<EmployeeStructureCard />
+							<EmployeeStructureCard />
+						</BaseRow>
+					</BaseColumn>
+					<EmployeeStructureCard />
+				</BaseRow>
+			</BaseColumn> -->
+		</BaseRow>
+	</BaseColumn>
 </template>
 
 <style scoped lang="scss">
+.employees-structure {
+	overflow: auto;
+	flex: 1 1 0;
+	max-width: 100%;
+	width: 100%;
+	margin-top: 24px;
+	& > * {
+		margin: 0 auto;
+	}
+}
 .documents-list {
 	margin-top: 16px;
 	flex: 1 1 0;

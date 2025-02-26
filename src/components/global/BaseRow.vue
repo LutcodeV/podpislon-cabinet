@@ -15,6 +15,10 @@ defineProps({
 	tag: {
 		default: 'div',
 	},
+	wrap: {
+		type: Boolean,
+		default: false,
+	},
 	wFill: {
 		type: Boolean,
 		default: false,
@@ -31,6 +35,7 @@ defineProps({
 			justifyContent: justify,
 			alignItems: align,
 			width: wFill ? '100%' : null,
+			flexWrap: wrap ? 'wrap' : null,
 		}"
 	>
 		<slot></slot>

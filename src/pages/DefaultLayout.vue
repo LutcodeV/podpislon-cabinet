@@ -29,13 +29,13 @@ provide('navbarIsFolded', navbarIsFolded)
 	background: var(--Basic-Dark);
 	display: grid;
 	transition: 0.3s ease;
-	grid-template-columns: 168px 1fr;
+	grid-template-columns: 168px calc(100vw - 168px);
 	grid-template-rows: auto 1fr;
 	grid-template-areas:
 		'header header'
 		'aside content';
 	&--navbar-folded {
-		grid-template-columns: 64px 1fr;
+		grid-template-columns: 64px calc(100vw - 64px);
 	}
 }
 .layout-header {
