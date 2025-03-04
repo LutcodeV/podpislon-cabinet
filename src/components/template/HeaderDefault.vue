@@ -1,5 +1,7 @@
 <script setup>
 import { inject } from 'vue'
+import BaseRow from '../global/BaseRow.vue'
+import BaseColumn from '../global/BaseColumn.vue'
 const contentIsBlur = inject('contentIsBlur')
 
 const SERVICES_LINKS = [
@@ -42,6 +44,28 @@ const BALANCES = [
 	},
 ]
 const COMPANIES = ['ООО Ромашка', 'ООО Газпром межрегионгаз промпромпромпромпромпромпром']
+
+const notificationIsOpen = ref(false)
+const closeModal = () => {
+	notificationIsOpen.value = false
+}
+const NOTIFICATIONS = [
+	{
+		status: 0,
+		text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		date: '27.10.2024 13:55',
+	},
+	{
+		status: 1,
+		text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		date: '27.10.2024 13:55',
+	},
+	{
+		status: 2,
+		text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		date: '27.10.2024 13:55',
+	},
+]
 </script>
 
 <template>
@@ -102,17 +126,99 @@ const COMPANIES = ['ООО Ромашка', 'ООО Газпром межрег�
 				</div>
 			</div>
 		</button>
-		<button class="header-account">
+		<routerLink to="/cabinet" class="header-account">
 			<BaseIcon class="header-account__icon" name="profile" />
 			<p class="header-account__value">Георгий Героев</p>
-		</button>
-		<div class="header-notification header-notification--new">
+		</routerLink>
+		<button
+			@click="notificationIsOpen = !notificationIsOpen"
+			class="header-notification header-notification--new"
+		>
 			<BaseIcon name="notification" />
-		</div>
+		</button>
+		<RightSlideModal :isVisible="notificationIsOpen" @close="closeModal">
+			<RightSlideModalContainer class="notification-modal">
+				<BaseRow justify="space-between" align="center">
+					<BaseText variant="heading" uppercase>Уведомления</BaseText>
+					<BaseText variant="small-main" underline color="var(--Basic-Grey)">
+						Прочитать все
+					</BaseText>
+				</BaseRow>
+				<BaseInput class="search" placeholder="Поиск уведомлений">
+					<template #postfix>
+						<BaseIcon size="22" name="search" class="search__icon" />
+					</template>
+				</BaseInput>
+				<BaseColumn class="notification-modal__column" gap="24px">
+					<BaseCard
+						:class="`notification-modal-card notification-modal-card--${item.status}`"
+						:tag="BaseRow"
+						gap="16px"
+						v-for="item in NOTIFICATIONS"
+					>
+						<div class="notification-modal-card__icon">
+							<BaseIcon name="message" size="16"></BaseIcon>
+						</div>
+						<BaseColumn gap="12px" class="notification-modal-card__col">
+							<BaseText variant="small-main" class="notification-modal-card__title">
+								{{ item.text }}
+							</BaseText>
+							<BaseText
+								variant="signatures"
+								class="notification-modal-card__date"
+								color="var(--Basic-Grey)"
+							>
+								{{ item.date }}
+							</BaseText>
+						</BaseColumn>
+					</BaseCard>
+				</BaseColumn>
+			</RightSlideModalContainer>
+		</RightSlideModal>
 	</header>
 </template>
 
 <style scoped lang="scss">
+.notification-modal-card {
+	&__icon {
+		min-width: 16px;
+	}
+	&--0 {
+		.notification-modal-card__icon {
+			position: relative;
+			&::before {
+				content: '';
+				position: absolute;
+				width: 6px;
+				height: 6px;
+				top: -5px;
+				left: -5px;
+				border-radius: 50%;
+				background: #ff2507;
+				box-shadow: 0px 0px 0px 4px rgba(255, 37, 7, 0.5);
+			}
+		}
+	}
+	&--2 {
+		opacity: 0.5;
+	}
+}
+.search {
+	margin-top: 24px;
+	&__icon {
+		position: absolute;
+		top: 50%;
+		right: 24px;
+		transform: translateY(-50%);
+	}
+}
+.notification-modal {
+	max-width: 840px;
+	width: 100%;
+	&__column {
+		margin-top: 32px;
+	}
+}
 .header {
 	padding: 16px 24px 16px 20px;
 	display: flex;

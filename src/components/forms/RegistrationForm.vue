@@ -16,8 +16,19 @@ const LIST_SUBTITLES = {
 	'Кабинет физлица': 'Ваш личный архив документов, которые вы подписали.',
 	'Кабинет компании': 'Подписывайте документы с клиентами и сотрудниками!',
 }
-
+const refForm = ref(null)
 const submitHandler = () => {
+	const inputs = refForm.value.querySelectorAll('.input')
+	let isError = false
+	inputs.forEach((input) => {
+		const inputField = input.querySelector('input')
+		if (inputField.checkValidity()) input.classList.remove('invalid')
+		else {
+			input.classList.add('invalid')
+			isError = true
+		}
+	})
+	if (isError) return
 	emit('submit', form.value)
 }
 watch(
@@ -35,39 +46,33 @@ const emit = defineEmits(['submit', 'selectRegistrationType'])
 	<div class="auth__subtitle auth__subtitle--small" v-if="form.registration_type !== 'Не выбрано'">
 		{{ LIST_SUBTITLES[form.registration_type] }}
 	</div>
-	<form class="form" @submit.prevent="submitHandler">
+	<form class="form" ref="refForm">
 		<base-select
 			v-model="form.registration_type"
 			placeholder="Тип регистрации"
 			:list="LIST_REGISTRATION_TYPE"
 		/>
 		<template v-if="form.registration_type !== 'Не выбрано'">
-			<base-input placeholder="Email" type="email" :required="true" v-model="form.email" required />
+			<base-input placeholder="Email" type="email" v-model="form.email" required />
 			<base-input
 				placeholder="Телефон"
 				type="phone"
-				:required="true"
 				v-model="form.password"
 				v-if="form.registration_type === 'Кабинет физлица'"
 				required
 			/>
-			<base-input
-				placeholder="Пароль"
-				type="password"
-				:required="true"
-				v-model="form.password"
-				required
-				v-else
-			/>
+			<base-input placeholder="Пароль" type="password" v-model="form.password" required v-else />
 			<div class="form__row">
 				<base-checkbox required>
 					Нажимая на кнопку «Зарегистрироваться», я даю согласие на
-					<a href="#">обработку персональных данных</a> и соглашаюсь c условиями
-					<a href="#">оферты</a>.
+					<a href="#">обработку персональных данных</a>
+					и соглашаюсь c условиями
+					<a href="#">оферты</a>
+					.
 				</base-checkbox>
 			</div>
 		</template>
-		<base-button :disabled="form.registration_type === 'Не выбрано'">
+		<base-button @click="submitHandler" :disabled="form.registration_type === 'Не выбрано'">
 			Зарегистрироваться
 		</base-button>
 		<div class="form__methods" v-if="form.registration_type !== 'Не выбрано'">

@@ -87,6 +87,10 @@ defineExpose({ refLabel })
 	&__postfix {
 		margin: auto 0;
 		display: flex;
+		position: absolute;
+		right: 24px;
+		top: 50%;
+		transform: translateY(-50%);
 		align-items: center;
 		justify-content: center;
 		color: var(--Basic-Grey);
@@ -137,6 +141,16 @@ defineExpose({ refLabel })
 		pointer-events: none;
 		background: var(--Basic-Background);
 		border-color: var(--Basic-Background);
+	}
+	&.invalid {
+		border-color: #ff2507;
+		background: #ff9283;
+		.input__title {
+			color: #ff2507;
+		}
+		.input__field {
+			color: #fff;
+		}
 	}
 }
 </style>

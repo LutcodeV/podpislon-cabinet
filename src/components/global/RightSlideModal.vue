@@ -5,21 +5,37 @@ const props = defineProps({
 		required: true,
 	},
 })
+const slots = defineSlots()
 const emit = defineEmits(['close'])
-
+const closed = ref(false)
 const closeModal = () => {
+	closed.value = true
 	emit('close')
 }
+watch(
+	() => props.isVisible,
+	() => {
+		if (props.isVisible) closed.value = false
+	},
+)
 
-const DELAY = 0.3
+const DELAY = 0.25
+const DURATION = 0.25
 </script>
 
 <template>
-	<div class="modal-overlay" v-if="isVisible" @click.self="closeModal">
+	<div
+		:class="`modal-overlay ${props.isVisible ? 'active' : ''} ${closed ? 'closed' : ''}`"
+		@click.self="closeModal"
+		:style="{
+			'--close-duration': `${($slots.default().length + 1) * DELAY}s`,
+			'--duration': `${DURATION}s`,
+		}"
+	>
 		<button
 			class="modal-close"
 			@click="closeModal"
-			:style="{ '--delay': `${Math.round($slots.default().length * DELAY)}s` }"
+			:style="{ '--delay': `${$slots.default().length * DELAY}s` }"
 		>
 			<BaseIcon name="close-modal" />
 		</button>
@@ -28,13 +44,33 @@ const DELAY = 0.3
 				:is="child"
 				:style="{
 					'--delay': `${($slots.default().length - 1 - index) * DELAY}s`,
+					'--back-delay': `${(index + 1) * DELAY}s`,
 				}"
 			/>
 		</template>
 	</div>
 </template>
-
 <style lang="scss" scoped>
+@keyframes slideToLeft {
+	from {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+@keyframes slideToRight {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+}
 .modal-close {
 	z-index: 1;
 	position: relative;
@@ -55,40 +91,37 @@ const DELAY = 0.3
 		background: var(--Basic-Branded);
 	}
 }
-@keyframes slideToLeft {
-	from {
-		transform: translateX(100%);
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
 .modal-overlay {
 	--duration: 0.3s;
+	--close-duration: 0.3s;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	display: flex;
+	overflow: hidden;
 	justify-content: flex-end;
 	align-items: flex-start;
 	z-index: 1000;
 	background: rgba(0, 0, 0, 0.2);
 	backdrop-filter: blur(2px);
-	animation: overlay 0.3s ease;
-	& > * {
-		animation: slideToLeft var(--duration) ease var(--delay) both;
-	}
-}
-@keyframes overlay {
-	from {
-		opacity: 0;
-	}
-	to {
+	opacity: 0;
+	pointer-events: none;
+	transition: var(--duration) ease var(--close-duration);
+	&.active {
 		opacity: 1;
+		transition: var(--duration) ease;
+		pointer-events: all;
+		& > * {
+			animation: slideToLeft var(--duration) ease var(--delay) both;
+		}
+	}
+	&.closed {
+		& > * {
+			--back-delay: 0s;
+			animation: slideToRight var(--duration) ease var(--back-delay) forwards;
+		}
 	}
 }
 </style>

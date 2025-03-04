@@ -3,23 +3,27 @@ const form = ref({
 	email: '',
 	password: '',
 })
+
+const refForm = ref(null)
+const submitHandler = () => {
+	const inputs = refForm.value.querySelectorAll('.input')
+	inputs.forEach((input) => {
+		const inputField = input.querySelector('input')
+		if (inputField.checkValidity()) input.classList.remove('invalid')
+		else input.classList.add('invalid')
+	})
+}
 </script>
 
 <template>
-	<form class="form">
-		<base-input placeholder="Email" type="email" :required="true" v-model="form.email" required />
-		<base-input
-			placeholder="Пароль"
-			type="password"
-			:required="true"
-			v-model="form.password"
-			required
-		/>
+	<form class="form" ref="refForm">
+		<base-input placeholder="Email" type="email" v-model="form.email" required />
+		<base-input placeholder="Пароль" type="password" v-model="form.password" required />
 		<div class="form__row">
 			<base-checkbox class="form__checkbox">Запомнить меня</base-checkbox>
 			<router-link class="form__link" to="/password-recovery">Забыли пароль?</router-link>
 		</div>
-		<base-button>Войти</base-button>
+		<base-button @click="submitHandler">Войти</base-button>
 		<div class="form__methods">
 			<ButtonAuthMethod type="biometry">Вход по биометрии</ButtonAuthMethod>
 			<ButtonAuthMethod type="tbank">Вход через TБанк ID</ButtonAuthMethod>
